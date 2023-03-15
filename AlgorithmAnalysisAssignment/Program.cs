@@ -17,15 +17,15 @@ namespace AlgorithmAnalysisAssignment
 
             //foreach (int[] array in manage.listOfArrays)
             //{
-            //    manage.algorithmD(array);
+            //    manage.algorithmH(array, array.Length);
             //}
 
-            manage.algorithmG(manage.staticArray);
+            manage.algorithmH(manage.arr32, manage.arr32.Length);
         }
 
         class ManageArrays 
         {
-            public int[] staticArray = { 6, 8, 9, 4, 5, 20, 10, 8, 12, 15, 13, 5 };
+            public int[] staticArray = {4,5,1,3,7,10,10};
 
             public List<int[]> listOfArrays = new List<int[]>();
             public int[] arr8 = new int[8];
@@ -309,27 +309,17 @@ namespace AlgorithmAnalysisAssignment
                 }
             }
 
-            public void algorithmH(int[] array) 
+            public void algorithmH(int[] array, int arrayLength) 
             {
-                int idealSumPartition = array.Sum()/2;
-
-                int[] array1 = new int[array.Length];
-                int[] array2 = new int[array.Length];
-                int sumArr1 = 0;
-                int sumArr2 = 0;
- 
-                
-
-                Console.WriteLine("The Sum of S1: " + array1.Sum());
-                for (int i = 0; i < array1.Length; i++)
+                static int findMinRec(int[] arr, int i, int sumCalculated, int sumTotal) 
                 {
-                    Console.WriteLine("S1: " + array1[i]);
+                    if (i == 0)
+                        return Math.Abs((sumTotal - sumCalculated) - sumCalculated);
+                    return Math.Min(findMinRec(arr, i - 1, sumCalculated + arr[i - 1], sumTotal), findMinRec(arr, i - 1, sumCalculated, sumTotal));
                 }
-                Console.WriteLine("The Sum of S2: " + array2.Sum());
-                for (int i = 0; i < array2.Length; i++)
-                {
-                    Console.WriteLine("S2: " + array2[i]);
-                }
+                int sumTotal = array.Sum();
+                int minRec = findMinRec(array, arrayLength, 0, sumTotal);
+                Console.WriteLine("The difference between the two subsets is: " + minRec);
             }
         }
         
