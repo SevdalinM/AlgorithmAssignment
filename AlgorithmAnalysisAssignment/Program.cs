@@ -20,7 +20,13 @@ namespace AlgorithmAnalysisAssignment
             //    manage.algorithmH(array, array.Length);
             //}
 
-            manage.algorithmH(manage.staticArray);
+            for (int i = 0; i < manage.arr16.Length; i++)
+            {
+                Console.WriteLine("Arr" + manage.arr16.Length + ": " + manage.arr16[i] + " N:" + (i + 1));
+            }
+
+
+            manage.algorithmH(manage.arr16);
         }
 
         class ManageArrays 
@@ -329,43 +335,57 @@ namespace AlgorithmAnalysisAssignment
 
             public void algorithmH(int[] array) 
             {
-                int n = array.Length;
-                int minDeviation = array.Sum();
-                int[] bestLeft = new int[array.Length / 2];
-                int[] bestRight = new int[array.Length / 2];
+                int bestDiff = array.Sum();
+                int[] bestLeft = new int[array.Length];
+                int[] bestRight = new int[array.Length];
 
-                for (int i = 0; i < n; i++) 
+                for (int i = 0; i < (1 << array.Length); i++) 
                 {
-                    for (int j = i; j < n; j++) 
-                    {
-                        int[] leftPartition = array[0..i];
-                        int[] rightPartition = array[i..(j + 1)];
-                        int totalSum = array.Sum();
-                        int leftSum = leftPartition.Sum();
-                        int rightSum = rightPartition.Sum();
+                    int[] part1 = new int[array.Length];
+                    int[] part2 = new int[array.Length];
+                    int sum1 = 0;
+                    int sum2 = 0;
 
-                        int deviation = Math.Abs(totalSum - 2 * leftSum);
-                        if (deviation < minDeviation) 
+                    for (int j = 0; j < array.Length; j++) 
+                    {
+                        if (((i >> j) & 1) == 1)
                         {
-                            minDeviation = deviation;
-                            bestLeft = leftPartition;
-                            bestRight = rightPartition;
+                            part1[sum1] = array[j];
+                            sum1 += 1;
                         }
+                        else 
+                        {
+                            part2[sum2] = array[j];
+                            sum2 += 1;
+                        }
+                    }
+
+                    Array.Resize(ref part1, sum1);
+                    Array.Resize(ref part2, sum2);
+
+                    int diff = Math.Abs(part1.Sum() - part2.Sum());
+
+                    if (diff < bestDiff) 
+                    {
+                        bestLeft = part1;
+                        bestRight = part2;
+                        bestDiff = diff;
                     }
                 }
 
-                Console.WriteLine("Sum: " + bestLeft.Sum());
+                Console.WriteLine(bestDiff);
                 for (int i = 0; i < bestLeft.Length; i++) 
                 {
-                    
                     Console.WriteLine("S1: " + bestLeft[i]);
                 }
-                Console.WriteLine("Sum: " + bestRight.Sum());
+
                 for (int i = 0; i < bestRight.Length; i++)
                 {
                     Console.WriteLine("S2: " + bestRight[i]);
                 }
+
             }
+
         }
         
 
