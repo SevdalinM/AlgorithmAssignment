@@ -20,7 +20,7 @@ namespace AlgorithmAnalysisAssignment
             //    manage.algorithmH(array, array.Length);
             //}
 
-            manage.algorithmH(manage.arr32, manage.arr32.Length);
+            manage.algorithmH(manage.staticArray);
         }
 
         class ManageArrays 
@@ -309,17 +309,62 @@ namespace AlgorithmAnalysisAssignment
                 }
             }
 
-            public void algorithmH(int[] array, int arrayLength) 
+            //public void algorithmH(int[] array, int arrayLength) 
+            //{
+            //    int[] array1 = new int[arrayLength];
+            //    int[] array2 = new int[arrayLength];
+            //    static int findMinRec(int[] arr, int i, int sumCalculated, int sumTotal) 
+            //    {
+            //        if (i == 0) 
+            //        {
+            //            return Math.Abs((sumTotal - sumCalculated) - sumCalculated);
+            //        }
+
+            //        return Math.Min(findMinRec(arr, i - 1, sumCalculated + arr[i - 1], sumTotal), findMinRec(arr, i - 1, sumCalculated, sumTotal));
+            //    }
+            //    int sumTotal = array.Sum();
+            //    int minRec = findMinRec(array, arrayLength, 0, sumTotal);
+            //    Console.WriteLine("The difference between the two subsets is: " + minRec);
+            //}
+
+            public void algorithmH(int[] array) 
             {
-                static int findMinRec(int[] arr, int i, int sumCalculated, int sumTotal) 
+                int n = array.Length;
+                int minDeviation = array.Sum();
+                int[] bestLeft = new int[array.Length / 2];
+                int[] bestRight = new int[array.Length / 2];
+
+                for (int i = 0; i < n; i++) 
                 {
-                    if (i == 0)
-                        return Math.Abs((sumTotal - sumCalculated) - sumCalculated);
-                    return Math.Min(findMinRec(arr, i - 1, sumCalculated + arr[i - 1], sumTotal), findMinRec(arr, i - 1, sumCalculated, sumTotal));
+                    for (int j = i; j < n; j++) 
+                    {
+                        int[] leftPartition = array[0..i];
+                        int[] rightPartition = array[i..(j + 1)];
+                        int totalSum = array.Sum();
+                        int leftSum = leftPartition.Sum();
+                        int rightSum = rightPartition.Sum();
+
+                        int deviation = Math.Abs(totalSum - 2 * leftSum);
+                        if (deviation < minDeviation) 
+                        {
+                            minDeviation = deviation;
+                            bestLeft = leftPartition;
+                            bestRight = rightPartition;
+                        }
+                    }
                 }
-                int sumTotal = array.Sum();
-                int minRec = findMinRec(array, arrayLength, 0, sumTotal);
-                Console.WriteLine("The difference between the two subsets is: " + minRec);
+
+                Console.WriteLine("Sum: " + bestLeft.Sum());
+                for (int i = 0; i < bestLeft.Length; i++) 
+                {
+                    
+                    Console.WriteLine("S1: " + bestLeft[i]);
+                }
+                Console.WriteLine("Sum: " + bestRight.Sum());
+                for (int i = 0; i < bestRight.Length; i++)
+                {
+                    Console.WriteLine("S2: " + bestRight[i]);
+                }
             }
         }
         
