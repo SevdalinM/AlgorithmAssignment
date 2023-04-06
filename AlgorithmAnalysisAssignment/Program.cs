@@ -12,26 +12,27 @@ namespace AlgorithmAnalysisAssignment
         static void Main(string[] args)
         {
             ManageArrays manage = new ManageArrays();
+            AlgorithmIv2 algorithmIv2 = new AlgorithmIv2();
+            AlgorithmI algorithmI = new AlgorithmI();
             manage.populateArrays();
-            //manage.displayArrays();
 
-            //foreach (int[] array in manage.listOfArrays)
+            //for (int i = 0; i < manage.arr16.Length; i++)
             //{
-            //    manage.algorithmH(array, array.Length);
+            //    Console.WriteLine("Arr" + manage.arr16.Length + ": " + manage.arr16[i] + " N:" + (i + 1));
             //}
-
-            for (int i = 0; i < manage.arr16.Length; i++)
-            {
-                Console.WriteLine("Arr" + manage.arr16.Length + ": " + manage.arr16[i] + " N:" + (i + 1));
-            }
-
-
-            manage.algorithmH(manage.arr16);
+            Console.WriteLine("Min Diff: " + 
+            algorithmIv2.minDifference(manage.arr32, manage.arr32.Length));
+            algorithmI.printEqualSumSets(manage.arr32, manage.arr32.Length);
+            //manage.algorithmH(manage.arr16);
         }
 
         class ManageArrays 
         {
-            public int[] staticArray = {4,5,1,3,7,10,10};
+            public List<int> staticArray = new List<int>{4,5,1,3,7,10,10};
+            public List<int> integers = new List<int>();
+
+
+
 
             public List<int[]> listOfArrays = new List<int[]>();
             public int[] arr8 = new int[8];
@@ -315,24 +316,6 @@ namespace AlgorithmAnalysisAssignment
                 }
             }
 
-            //public void algorithmH(int[] array, int arrayLength) 
-            //{
-            //    int[] array1 = new int[arrayLength];
-            //    int[] array2 = new int[arrayLength];
-            //    static int findMinRec(int[] arr, int i, int sumCalculated, int sumTotal) 
-            //    {
-            //        if (i == 0) 
-            //        {
-            //            return Math.Abs((sumTotal - sumCalculated) - sumCalculated);
-            //        }
-
-            //        return Math.Min(findMinRec(arr, i - 1, sumCalculated + arr[i - 1], sumTotal), findMinRec(arr, i - 1, sumCalculated, sumTotal));
-            //    }
-            //    int sumTotal = array.Sum();
-            //    int minRec = findMinRec(array, arrayLength, 0, sumTotal);
-            //    Console.WriteLine("The difference between the two subsets is: " + minRec);
-            //}
-
             public void algorithmH(int[] array) 
             {
                 int bestDiff = array.Sum();
@@ -385,6 +368,7 @@ namespace AlgorithmAnalysisAssignment
                 }
 
             }
+
 
         }
         
